@@ -1,0 +1,15 @@
+{"time":"2025-05-26T16:37:40.821555476Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_163739-dr76ldfl/logs/debug-core.log"}
+{"time":"2025-05-26T16:37:41.294264165Z","level":"INFO","msg":"created new stream","id":"dr76ldfl"}
+{"time":"2025-05-26T16:37:41.294343258Z","level":"INFO","msg":"stream: started","id":"dr76ldfl"}
+{"time":"2025-05-26T16:37:41.294502015Z","level":"INFO","msg":"writer: Do: started","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T16:37:41.294617918Z","level":"INFO","msg":"sender: started","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T16:37:41.294754819Z","level":"INFO","msg":"handler: started","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T16:37:41.673577628Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-26T19:03:05.124312901Z","level":"INFO","msg":"stream: closing","id":"dr76ldfl"}
+{"time":"2025-05-26T19:03:05.124390479Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-26T19:03:05.124706254Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-26T19:03:06.488017592Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-26T19:03:07.731223461Z","level":"INFO","msg":"handler: closed","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T19:03:07.731370144Z","level":"INFO","msg":"sender: closed","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T19:03:07.731378827Z","level":"INFO","msg":"writer: Close: closed","stream_id":"dr76ldfl"}
+{"time":"2025-05-26T19:03:07.731608716Z","level":"INFO","msg":"stream: closed","id":"dr76ldfl"}

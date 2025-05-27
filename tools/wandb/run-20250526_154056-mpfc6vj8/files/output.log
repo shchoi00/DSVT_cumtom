@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 215, in <module>
+    main()
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 110, in main
+    wandb.tensorboard.patch(root_logdir=str(output_dir / 'tensorboard'))
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/wandb/integration/tensorboard/monkeypatch.py", line 32, in patch
+    raise ValueError(
+ValueError: Tensorboard already patched. Call `wandb.tensorboard.unpatch()` first; remove `sync_tensorboard=True` from `wandb.init`; or only call `wandb.tensorboard.patch` once.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 215, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 110, in main
+[rank0]:     wandb.tensorboard.patch(root_logdir=str(output_dir / 'tensorboard'))
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/wandb/integration/tensorboard/monkeypatch.py", line 32, in patch
+[rank0]:     raise ValueError(
+[rank0]: ValueError: Tensorboard already patched. Call `wandb.tensorboard.unpatch()` first; remove `sync_tensorboard=True` from `wandb.init`; or only call `wandb.tensorboard.patch` once.

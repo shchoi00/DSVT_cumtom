@@ -1,0 +1,11 @@
+{"time":"2025-05-26T19:18:46.986507342Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_191845-xgoazy8v/logs/debug-core.log"}
+{"time":"2025-05-26T19:18:47.462733467Z","level":"INFO","msg":"created new stream","id":"xgoazy8v"}
+{"time":"2025-05-26T19:18:47.4627975Z","level":"INFO","msg":"stream: started","id":"xgoazy8v"}
+{"time":"2025-05-26T19:18:47.463021016Z","level":"INFO","msg":"writer: Do: started","stream_id":"xgoazy8v"}
+{"time":"2025-05-26T19:18:47.463041514Z","level":"INFO","msg":"sender: started","stream_id":"xgoazy8v"}
+{"time":"2025-05-26T19:18:47.463236925Z","level":"INFO","msg":"handler: started","stream_id":"xgoazy8v"}
+{"time":"2025-05-26T19:18:47.759866375Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-26T19:20:59.976676461Z","level":"INFO","msg":"stream: closing","id":"xgoazy8v"}
+{"time":"2025-05-26T19:20:59.976750856Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-26T19:20:59.976971601Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-26T19:21:01.187253791Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}

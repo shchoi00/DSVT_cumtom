@@ -1,0 +1,76 @@
+{
+  "os": "Linux-5.15.0-118-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.17",
+  "startedAt": "2025-05-26T14:13:42.010562Z",
+  "args": [
+    "--local-rank=0",
+    "--launcher",
+    "pytorch",
+    "--cfg_file",
+    "./cfgs/dsvt_models/dsvt_plain_1f_onestage_SL.yaml",
+    "--sync_bn",
+    "--logger_iter_interval",
+    "500",
+    "--batch_size",
+    "40",
+    "--epochs",
+    "1000",
+    "--start_epoch",
+    "5"
+  ],
+  "program": "/home/shchoi/workspace/DSVT/tools/train.py",
+  "codePath": "tools/train.py",
+  "git": {
+    "remote": "https://github.com/Haiyang-W/DSVT.git",
+    "commit": "8cfc2a6f23eed0b10aabcdc4768c60b184357061"
+  },
+  "email": "motdesty@gmail.com",
+  "root": "/home/shchoi/workspace/DSVT/tools",
+  "host": "lecun",
+  "executable": "/home/shchoi/anaconda3/envs/open3d_data/bin/python",
+  "codePathLocal": "train.py",
+  "cpu_count": 32,
+  "cpu_count_logical": 64,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 4,
+  "disk": {
+    "/": {
+      "total": "7618652209152",
+      "used": "6652119019520"
+    }
+  },
+  "memory": {
+    "total": "134843101184"
+  },
+  "cpu": {
+    "count": 32,
+    "countLogical": 64
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada"
+    },
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.2"
+}

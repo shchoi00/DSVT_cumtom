@@ -1,0 +1,267 @@
+2025-05-26 14:13:44,481   INFO  Database filter by min points Truck: 2193 => 1722
+2025-05-26 14:13:44,482   INFO  Database filter by min points Forklift: 671 => 478
+2025-05-26 14:13:44,482   INFO  Database filter by min points Worker: 794 => 415
+2025-05-26 14:13:44,483   INFO  Loading Custom dataset.
+2025-05-26 14:13:44,484   INFO  Total samples for CUSTOM dataset: 430
+2025-05-26 14:13:45,196   INFO  DistributedDataParallel(
+  (module): CenterPoint(
+    (vfe): DynamicPillarVFE(
+      (pfn_layers): ModuleList(
+        (0): PFNLayerV2(
+          (linear): Linear(in_features=10, out_features=64, bias=False)
+          (norm): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (1): PFNLayerV2(
+          (linear): Linear(in_features=128, out_features=128, bias=False)
+          (norm): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+      )
+    )
+    (backbone_3d): DSVT(
+      (input_layer): DSVTInputLayer(
+        (posembed_layers): ModuleList(
+          (0): ModuleList(
+            (0-3): 4 x ModuleList(
+              (0-1): 2 x PositionEmbeddingLearned(
+                (position_embedding_head): Sequential(
+                  (0): Linear(in_features=2, out_features=128, bias=True)
+                  (1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (2): ReLU(inplace=True)
+                  (3): Linear(in_features=128, out_features=128, bias=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (stage_0): ModuleList(
+        (0-3): 4 x DSVTBlock(
+          (encoder_list): ModuleList(
+            (0-1): 2 x DSVT_EncoderLayer(
+              (win_attn): SetAttention(
+                (self_attn): MultiheadAttention(
+                  (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+                )
+                (linear1): Linear(in_features=128, out_features=256, bias=True)
+                (dropout): Dropout(p=0, inplace=False)
+                (linear2): Linear(in_features=256, out_features=128, bias=True)
+                (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (dropout1): Identity()
+                (dropout2): Identity()
+              )
+              (norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+            )
+          )
+        )
+      )
+      (residual_norm_stage_0): ModuleList(
+        (0-3): 4 x LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (map_to_bev_module): PointPillarScatter3d()
+    (pfe): None
+    (backbone_2d): BaseBEVResBackbone(
+      (blocks): ModuleList(
+        (0): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+      )
+      (deblocks): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (1): Sequential(
+          (0): ConvTranspose2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (2): Sequential(
+          (0): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+      )
+    )
+    (dense_head): CenterHead(
+      (shared_conv): Sequential(
+        (0): Conv2d(384, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (heads_list): ModuleList(
+        (0): SeparateHead(
+          (center): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (center_z): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (dim): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (rot): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (iou): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (hm): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (hm_loss_func): FocalLossCenterNet()
+      (reg_loss_func): RegLossCenterNet()
+    )
+    (point_head): None
+    (roi_head): None
+  )
+)
+2025-05-26 14:13:45,208   INFO  **********************Start training dsvt_plain_1f_onestage_SL**********************
+epochs:   0%|                                                                                                                                                                                                                                                                                                          | 0/1000 [00:00<?, ?it/s]/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]                                                                                                                                                                                                                                                   | 0/11 [00:00<?, ?it/s]
+/home/shchoi/workspace/DSVT/tools/../pcdet/ops/iou3d_nms/iou3d_nms_utils.py:103: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:78.)
+  overlaps_bev = torch.cuda.FloatTensor(torch.Size((boxes_a.shape[0], 1))).zero_()  # (N, ``)
+/home/shchoi/workspace/DSVT/tools/../pcdet/utils/commu_utils.py:66: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  storage = torch.ByteStorage.from_buffer(buffer)
+2025-05-26 14:16:22,749   INFO  epoch: 0/1000, acc_iter=11, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:08/00:00, time_cost(all): 02:37/2:20:48, loss_hm=7.4948, loss_loc=9.0244, loss=20.06646910580722, d_time=0.03(0.05), f_time=0.49(0.89), b_time=0.52(0.94), norm=9.84710693359375, lr=0.0010001147030762516
+epochs:   0%|▎                                                                                                                                                                                                                                                                                             | 1/1000 [02:39<44:15:40, 159.50s/it]2025-05-26 14:17:47,653   INFO  epoch: 1/1000, acc_iter=22, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 04:02/1:54:18, loss_hm=3.1129, loss_loc=7.6622, loss=13.939369548450816, d_time=0.03(0.05), f_time=0.45(0.61), b_time=0.48(0.67), norm=6.424642562866211, lr=0.0010005058332383868
+epochs:   0%|▌                                                                                                                                                                                                                                                                                             | 2/1000 [04:04<32:01:51, 115.54s/it]2025-05-26 14:19:11,203   INFO  epoch: 2/1000, acc_iter=33, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:08/00:00, time_cost(all): 05:25/2:16:30, loss_hm=2.9711, loss_loc=7.6572, loss=13.659787698225541, d_time=0.03(0.06), f_time=0.45(0.69), b_time=0.48(0.74), norm=6.034912109375, lr=0.0010011745133952348
+epochs:   0%|▊                                                                                                                                                                                                                                                                                             | 3/1000 [05:27<27:56:54, 100.92s/it]2025-05-26 14:20:34,500   INFO  epoch: 3/1000, acc_iter=44, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 06:49/2:01:51, loss_hm=2.7592, loss_loc=7.5642, loss=13.41857840798118, d_time=0.03(0.05), f_time=0.45(0.74), b_time=0.48(0.79), norm=8.142650604248047, lr=0.0010021207022994586
+epochs:   0%|█▏                                                                                                                                                                                                                                                                                             | 4/1000 [06:51<25:59:36, 93.95s/it]2025-05-26 14:21:59,170   INFO  epoch: 4/1000, acc_iter=55, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 08:13/1:51:20, loss_hm=2.5682, loss_loc=7.6375, loss=13.253422823819248, d_time=0.03(0.06), f_time=0.45(0.63), b_time=0.47(0.68), norm=4.949441909790039, lr=0.0010033443415856675
+epochs:   0%|█▍                                                                                                                                                                                                                                                                                             | 5/1000 [08:15<25:02:59, 90.63s/it]2025-05-26 14:23:21,244   INFO  epoch: 5/1000, acc_iter=66, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:11/00:01, time_cost(all): 09:36/3:03:57, loss_hm=2.2371, loss_loc=7.4326, loss=12.809796766801314, d_time=0.03(0.05), f_time=0.45(0.74), b_time=0.48(0.79), norm=3.5385265350341797, lr=0.0010048453557740256
+epochs:   1%|█▋                                                                                                                                                                                                                                                                                             | 6/1000 [09:37<24:13:15, 87.72s/it]2025-05-26 14:24:45,584   INFO  epoch: 6/1000, acc_iter=77, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 11:00/1:50:36, loss_hm=2.4106, loss_loc=7.4906, loss=12.938725731589578, d_time=0.04(0.06), f_time=0.46(0.63), b_time=0.49(0.69), norm=5.090072154998779, lr=0.0010066236522749093
+epochs:   1%|██                                                                                                                                                                                                                                                                                             | 7/1000 [11:02<23:53:29, 86.62s/it]2025-05-26 14:26:10,491   INFO  epoch: 7/1000, acc_iter=88, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 12:25/1:49:31, loss_hm=2.3203, loss_loc=7.5224, loss=12.899388486688787, d_time=0.03(0.06), f_time=0.44(0.63), b_time=0.47(0.68), norm=6.204560279846191, lr=0.0010086791213946133
+epochs:   1%|██▎                                                                                                                                                                                                                                                                                            | 8/1000 [12:27<23:43:12, 86.08s/it]2025-05-26 14:27:34,508   INFO  epoch: 8/1000, acc_iter=99, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:09/00:00, time_cost(all): 13:49/2:42:03, loss_hm=2.2456, loss_loc=7.4460, loss=12.783862980929287, d_time=0.03(0.06), f_time=0.44(0.72), b_time=0.48(0.78), norm=7.46303653717041, lr=0.0010110116363421205
+epochs:   1%|██▌                                                                                                                                                                                                                                                                                            | 9/1000 [13:51<23:31:00, 85.43s/it]2025-05-26 14:28:58,460   INFO  epoch: 9/1000, acc_iter=110, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 15:13/1:49:59, loss_hm=2.5093, loss_loc=7.4902, loss=12.873878305608576, d_time=0.03(0.06), f_time=0.44(0.65), b_time=0.48(0.71), norm=4.037099838256836, lr=0.0010136210532369194
+epochs:   1%|██▊                                                                                                                                                                                                                                                                                           | 10/1000 [15:15<23:21:58, 84.97s/it]2025-05-26 14:30:23,845   INFO  epoch: 10/1000, acc_iter=121, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 16:38/1:48:28, loss_hm=2.2900, loss_loc=7.5464, loss=12.924417409029873, d_time=0.03(0.06), f_time=0.45(0.64), b_time=0.48(0.70), norm=4.3254289627075195, lr=0.0010165072111178886
+train:   0%|                                                                                                                                                                                                                                                                                                             | 0/11 [00:00<?, ?it/s]Exception ignored in: <function _MultiProcessingDataLoaderIter.__del__ at 0x7f63cf9563b0>
+Traceback (most recent call last):                                                                                                                                                                                                                                                                                                              
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1618, in __del__
+    self._shutdown_workers()
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1582, in _shutdown_workers
+    w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/process.py", line 149, in join
+    res = self._popen.wait(timeout)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+    if not wait([self.sentinel], timeout):
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt:
+epochs:   1%|███▏                                                                                                                                                                                                                                                                                          | 11/1000 [16:39<23:16:35, 84.73s/it]

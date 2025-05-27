@@ -1,0 +1,10 @@
+{"time":"2025-05-26T19:33:18.044476354Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_193316-8nyg69hf/logs/debug-core.log"}
+{"time":"2025-05-26T19:33:18.516116085Z","level":"INFO","msg":"created new stream","id":"8nyg69hf"}
+{"time":"2025-05-26T19:33:18.516203784Z","level":"INFO","msg":"stream: started","id":"8nyg69hf"}
+{"time":"2025-05-26T19:33:18.516270196Z","level":"INFO","msg":"writer: Do: started","stream_id":"8nyg69hf"}
+{"time":"2025-05-26T19:33:18.516357976Z","level":"INFO","msg":"sender: started","stream_id":"8nyg69hf"}
+{"time":"2025-05-26T19:33:18.516572533Z","level":"INFO","msg":"handler: started","stream_id":"8nyg69hf"}
+{"time":"2025-05-26T19:33:18.838932782Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-26T19:35:50.318301116Z","level":"INFO","msg":"stream: closing","id":"8nyg69hf"}
+{"time":"2025-05-26T19:35:50.318373783Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-26T19:35:50.318490339Z","level":"INFO","msg":"Stopped system monitor"}

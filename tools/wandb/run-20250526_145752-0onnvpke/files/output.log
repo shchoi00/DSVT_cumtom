@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 219, in <module>
+    main()
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 114, in main
+    wandb.tensorboard.patch(
+TypeError: patch() got an unexpected keyword argument 'tensorboardX'
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 219, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 114, in main
+[rank0]:     wandb.tensorboard.patch(
+[rank0]: TypeError: patch() got an unexpected keyword argument 'tensorboardX'

@@ -104,7 +104,7 @@ class SparseAnchorFreeHead(nn.Module):
 
     def visualize_heatmap(self, heatmap, pixel_coords, gt_boxes, feature_map_size, draw_gaussian):
         import matplotlib.pyplot as plt
-        from pcdet.utils import box_utils
+        from pcdet_from_git.utils import box_utils
         import ss_visual_utils as V
         corners2d = box_utils.boxes_to_corners_2d(
             gt_boxes, point_cloud_range=[-75.2, -75.2, -2, 75.2, 75.2, 4], voxel_size=(0.1, 0.1, 0.2)

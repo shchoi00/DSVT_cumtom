@@ -1,0 +1,8 @@
+{"time":"2025-05-26T15:44:34.676083089Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_154433-5ase3y6d/logs/debug-core.log"}
+{"time":"2025-05-26T15:44:35.053298688Z","level":"INFO","msg":"created new stream","id":"5ase3y6d"}
+{"time":"2025-05-26T15:44:35.053375498Z","level":"INFO","msg":"stream: started","id":"5ase3y6d"}
+{"time":"2025-05-26T15:44:35.053604326Z","level":"INFO","msg":"writer: Do: started","stream_id":"5ase3y6d"}
+{"time":"2025-05-26T15:44:35.053672923Z","level":"INFO","msg":"handler: started","stream_id":"5ase3y6d"}
+{"time":"2025-05-26T15:44:35.053770005Z","level":"INFO","msg":"sender: started","stream_id":"5ase3y6d"}
+{"time":"2025-05-26T15:44:35.34157181Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-26T16:04:51.256126313Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/motdesty-hanyang-university/DSVT/5ase3y6d/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}

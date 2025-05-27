@@ -1,12 +1,15 @@
 DATASET: 'CustomDataset'
 DATA_PATH: '../data/custom'
 
-POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 4]
+CLASS_NAMES: ['Truck', 'Forklift','Worker']  
+
+POINT_CLOUD_RANGE: [-75.2, -75.2, -2, 75.2, 75.2, 6]
 
 MAP_CLASS_TO_KITTI: {
-    'Vehicle': 'Car',
-    'Pedestrian': 'Pedestrian',
-    'Cyclist': 'Cyclist',
+    # 'Car': 'Car',
+    'Truck': 'Truck',
+    'Forklift': 'Cyclist',
+    'Worker': 'Pedestrian'
 }
 
 DATA_SPLIT: {
@@ -21,8 +24,8 @@ INFO_PATH: {
 
 POINT_FEATURE_ENCODING: {
     encoding_type: absolute_coordinates_encoding,
-    used_feature_list: ['x', 'y', 'z', 'intensity'],
-    src_feature_list: ['x', 'y', 'z', 'intensity'],
+    used_feature_list: ['x', 'y', 'z'],
+    src_feature_list: ['x', 'y', 'z'],
 }
 
 DATA_AUGMENTOR:
@@ -33,11 +36,11 @@ DATA_AUGMENTOR:
           DB_INFO_PATH:
               - custom_dbinfos_train.pkl
           PREPARE: {
-             filter_by_min_points: ['Vehicle:5', 'Pedestrian:5', 'Cyclist:5'],
+             filter_by_min_points: ['Car:5', 'Truck:5', 'Forklift:5', 'Worker:5'],
           }
 
-          SAMPLE_GROUPS: ['Vehicle:20', 'Pedestrian:15', 'Cyclist:15']
-          NUM_POINT_FEATURES: 4
+          SAMPLE_GROUPS: ['Car:20', 'Truck:15', 'Forklift:15', 'Worker:10']
+          NUM_POINT_FEATURES: 3
           DATABASE_WITH_FAKELIDAR: False
           REMOVE_EXTRA_WIDTH: [0.0, 0.0, 0.0]
           LIMIT_WHOLE_SCENE: True

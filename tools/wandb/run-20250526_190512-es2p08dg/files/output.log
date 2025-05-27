@@ -1,0 +1,304 @@
+2025-05-26 19:05:14,526   INFO  Database filter by min points Truck: 2193 => 1722
+2025-05-26 19:05:14,526   INFO  Database filter by min points Forklift: 671 => 478
+2025-05-26 19:05:14,527   INFO  Database filter by min points Worker: 794 => 415
+2025-05-26 19:05:14,527   INFO  Loading Custom dataset.
+2025-05-26 19:05:14,530   INFO  Total samples for CUSTOM dataset: 430
+2025-05-26 19:05:15,298   INFO  DistributedDataParallel(
+  (module): CenterPoint(
+    (vfe): DynamicPillarVFE(
+      (pfn_layers): ModuleList(
+        (0): PFNLayerV2(
+          (linear): Linear(in_features=9, out_features=64, bias=False)
+          (norm): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (1): PFNLayerV2(
+          (linear): Linear(in_features=128, out_features=128, bias=False)
+          (norm): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+      )
+    )
+    (backbone_3d): DSVT(
+      (input_layer): DSVTInputLayer(
+        (posembed_layers): ModuleList(
+          (0): ModuleList(
+            (0-3): 4 x ModuleList(
+              (0-1): 2 x PositionEmbeddingLearned(
+                (position_embedding_head): Sequential(
+                  (0): Linear(in_features=2, out_features=128, bias=True)
+                  (1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (2): ReLU(inplace=True)
+                  (3): Linear(in_features=128, out_features=128, bias=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (stage_0): ModuleList(
+        (0-3): 4 x DSVTBlock(
+          (encoder_list): ModuleList(
+            (0-1): 2 x DSVT_EncoderLayer(
+              (win_attn): SetAttention(
+                (self_attn): MultiheadAttention(
+                  (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+                )
+                (linear1): Linear(in_features=128, out_features=256, bias=True)
+                (dropout): Dropout(p=0, inplace=False)
+                (linear2): Linear(in_features=256, out_features=128, bias=True)
+                (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (dropout1): Identity()
+                (dropout2): Identity()
+              )
+              (norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+            )
+          )
+        )
+      )
+      (residual_norm_stage_0): ModuleList(
+        (0-3): 4 x LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (map_to_bev_module): PointPillarScatter3d()
+    (pfe): None
+    (backbone_2d): BaseBEVResBackbone(
+      (blocks): ModuleList(
+        (0): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+      )
+      (deblocks): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (1): Sequential(
+          (0): ConvTranspose2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (2): Sequential(
+          (0): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+      )
+    )
+    (dense_head): CenterHead(
+      (shared_conv): Sequential(
+        (0): Conv2d(384, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (heads_list): ModuleList(
+        (0): SeparateHead(
+          (center): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (center_z): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (dim): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (rot): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (iou): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (hm): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (hm_loss_func): FocalLossCenterNet()
+      (reg_loss_func): RegLossCenterNet()
+    )
+    (point_head): None
+    (roi_head): None
+  )
+)
+2025-05-26 19:05:15,310   INFO  **********************Start training dsvt_plain_1f_onestage_SL**********************
+epochs:   0%|                                                                                                                                                                                                                                                                                                          | 0/1000 [02:28<?, ?it/s]
+Traceback (most recent call last):                                                                                                                                                                                                                                                                                       | 0/11 [00:00<?, ?it/s]
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 211, in <module>
+    main()
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 158, in main
+    train_model(
+  File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 224, in train_model
+    accumulated_iter = train_one_epoch(
+  File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 52, in train_one_epoch
+    batch = next(dataloader_iter)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/_utils.py", line 733, in reraise
+    raise exception
+AssertionError: Caught AssertionError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/custom/custom_dataset.py", line 109, in __getitem__
+    data_dict = self.prepare_data(data_dict=input_dict)
+  File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/dataset.py", line 180, in prepare_data
+    data_dict = self.point_feature_encoder.forward(data_dict)
+  File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/processor/point_feature_encoder.py", line 29, in forward
+    data_dict['points'], use_lead_xyz = getattr(self, self.point_encoding_config.encoding_type)(
+  File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/processor/point_feature_encoder.py", line 48, in absolute_coordinates_encoding
+    assert points.shape[-1] == len(self.src_feature_list)
+AssertionError
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 211, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 158, in main
+[rank0]:     train_model(
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 224, in train_model
+[rank0]:     accumulated_iter = train_one_epoch(
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 52, in train_one_epoch
+[rank0]:     batch = next(dataloader_iter)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+[rank0]:     data = self._next_data()
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1480, in _next_data
+[rank0]:     return self._process_data(data)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1505, in _process_data
+[rank0]:     data.reraise()
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/_utils.py", line 733, in reraise
+[rank0]:     raise exception
+[rank0]: AssertionError: Caught AssertionError in DataLoader worker process 0.
+[rank0]: Original Traceback (most recent call last):
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+[rank0]:     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+[rank0]:     data = [self.dataset[idx] for idx in possibly_batched_index]
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+[rank0]:     data = [self.dataset[idx] for idx in possibly_batched_index]
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/custom/custom_dataset.py", line 109, in __getitem__
+[rank0]:     data_dict = self.prepare_data(data_dict=input_dict)
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/dataset.py", line 180, in prepare_data
+[rank0]:     data_dict = self.point_feature_encoder.forward(data_dict)
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/processor/point_feature_encoder.py", line 29, in forward
+[rank0]:     data_dict['points'], use_lead_xyz = getattr(self, self.point_encoding_config.encoding_type)(
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/../pcdet/datasets/processor/point_feature_encoder.py", line 48, in absolute_coordinates_encoding
+[rank0]:     assert points.shape[-1] == len(self.src_feature_list)
+[rank0]: AssertionError

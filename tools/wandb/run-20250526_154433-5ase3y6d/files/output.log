@@ -1,0 +1,334 @@
+2025-05-26 15:44:35,563   INFO  Database filter by min points Truck: 2193 => 1722
+2025-05-26 15:44:35,564   INFO  Database filter by min points Forklift: 671 => 478
+2025-05-26 15:44:35,564   INFO  Database filter by min points Worker: 794 => 415
+2025-05-26 15:44:35,565   INFO  Loading Custom dataset.
+2025-05-26 15:44:35,567   INFO  Total samples for CUSTOM dataset: 430
+2025-05-26 15:44:36,322   INFO  DistributedDataParallel(
+  (module): CenterPoint(
+    (vfe): DynamicPillarVFE(
+      (pfn_layers): ModuleList(
+        (0): PFNLayerV2(
+          (linear): Linear(in_features=10, out_features=64, bias=False)
+          (norm): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+        (1): PFNLayerV2(
+          (linear): Linear(in_features=128, out_features=128, bias=False)
+          (norm): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (relu): ReLU()
+        )
+      )
+    )
+    (backbone_3d): DSVT(
+      (input_layer): DSVTInputLayer(
+        (posembed_layers): ModuleList(
+          (0): ModuleList(
+            (0-3): 4 x ModuleList(
+              (0-1): 2 x PositionEmbeddingLearned(
+                (position_embedding_head): Sequential(
+                  (0): Linear(in_features=2, out_features=128, bias=True)
+                  (1): SyncBatchNorm(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+                  (2): ReLU(inplace=True)
+                  (3): Linear(in_features=128, out_features=128, bias=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (stage_0): ModuleList(
+        (0-3): 4 x DSVTBlock(
+          (encoder_list): ModuleList(
+            (0-1): 2 x DSVT_EncoderLayer(
+              (win_attn): SetAttention(
+                (self_attn): MultiheadAttention(
+                  (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+                )
+                (linear1): Linear(in_features=128, out_features=256, bias=True)
+                (dropout): Dropout(p=0, inplace=False)
+                (linear2): Linear(in_features=256, out_features=128, bias=True)
+                (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+                (dropout1): Identity()
+                (dropout2): Identity()
+              )
+              (norm): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+            )
+          )
+        )
+      )
+      (residual_norm_stage_0): ModuleList(
+        (0-3): 4 x LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (map_to_bev_module): PointPillarScatter3d()
+    (pfe): None
+    (backbone_2d): BaseBEVResBackbone(
+      (blocks): ModuleList(
+        (0): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+            (downsample_layer): Sequential(
+              (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+          (2): BasicBlock(
+            (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu1): ReLU()
+            (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): SyncBatchNorm(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+            (relu2): ReLU()
+          )
+        )
+      )
+      (deblocks): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(128, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (1): Sequential(
+          (0): ConvTranspose2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (2): Sequential(
+          (0): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): SyncBatchNorm(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+      )
+    )
+    (dense_head): CenterHead(
+      (shared_conv): Sequential(
+        (0): Conv2d(384, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        (2): ReLU()
+      )
+      (heads_list): ModuleList(
+        (0): SeparateHead(
+          (center): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (center_z): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (dim): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (rot): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (iou): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+          (hm): Sequential(
+            (0): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+              (1): SyncBatchNorm(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+            (1): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          )
+        )
+      )
+      (hm_loss_func): FocalLossCenterNet()
+      (reg_loss_func): RegLossCenterNet()
+    )
+    (point_head): None
+    (roi_head): None
+  )
+)
+2025-05-26 15:44:36,336   INFO  **********************Start training dsvt_plain_1f_onestage_SL**********************
+epochs:   0%|                                                                                                                                                                                                                                                                                                          | 0/1000 [00:00<?, ?it/s][34m[1mwandb[0m: [33mWARNING[0m Step cannot be set when using tensorboard syncing. Please use `run.define_metric(...)` to define a custom metric to log your step values.
+/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/functional.py:539: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:3637.)                                      | 0/11 [00:00<?, ?it/s]
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/home/shchoi/workspace/DSVT/tools/../pcdet/ops/iou3d_nms/iou3d_nms_utils.py:103: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /pytorch/torch/csrc/tensor/python_tensor.cpp:78.)
+  overlaps_bev = torch.cuda.FloatTensor(torch.Size((boxes_a.shape[0], 1))).zero_()  # (N, ``)
+/home/shchoi/workspace/DSVT/tools/../pcdet/utils/commu_utils.py:66: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  storage = torch.ByteStorage.from_buffer(buffer)
+2025-05-26 15:47:16,045   INFO  epoch: 0/1000, acc_iter=11, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:09/00:00, time_cost(all): 02:39/2:30:17, loss_hm=4.8676, loss_loc=9.2219, loss=17.48716016249223, d_time=0.04(0.06), f_time=0.48(0.71), b_time=0.51(0.77), norm=8.704558372497559, lr=0.0010001147030762516
+epochs:   0%|▎                                                                                                                                                                                                                                                                                             | 1/1000 [02:41<44:52:27, 161.71s/it]2025-05-26 15:48:39,726   INFO  epoch: 1/1000, acc_iter=22, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 04:03/1:52:04, loss_hm=2.9231, loss_loc=7.8200, loss=13.811369895935059, d_time=0.03(0.06), f_time=0.46(0.66), b_time=0.49(0.72), norm=7.5335187911987305, lr=0.0010005058332383868
+epochs:   0%|▌                                                                                                                                                                                                                                                                                             | 2/1000 [04:05<32:07:23, 115.87s/it]2025-05-26 15:50:02,811   INFO  epoch: 2/1000, acc_iter=33, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 05:26/1:54:50, loss_hm=2.7752, loss_loc=7.5824, loss=13.360719247297807, d_time=0.03(0.05), f_time=0.46(0.66), b_time=0.49(0.71), norm=5.682929039001465, lr=0.0010011745133952348
+epochs:   0%|▊                                                                                                                                                                                                                                                                                             | 3/1000 [05:28<27:57:14, 100.94s/it]2025-05-26 15:51:26,485   INFO  epoch: 3/1000, acc_iter=44, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 06:50/1:52:53, loss_hm=2.4331, loss_loc=7.5402, loss=13.216588973999023, d_time=0.03(0.06), f_time=0.48(0.74), b_time=0.50(0.80), norm=15.363509178161621, lr=0.0010021207022994586
+epochs:   0%|█▏                                                                                                                                                                                                                                                                                             | 4/1000 [06:51<25:59:33, 93.95s/it]2025-05-26 15:52:49,784   INFO  epoch: 4/1000, acc_iter=55, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:09/00:00, time_cost(all): 08:13/2:44:15, loss_hm=2.4597, loss_loc=7.6521, loss=13.068398735739969, d_time=0.03(0.06), f_time=0.46(0.72), b_time=0.49(0.78), norm=9.995699882507324, lr=0.0010033443415856675
+epochs:   0%|█▍                                                                                                                                                                                                                                                                                             | 5/1000 [08:15<24:55:18, 90.17s/it]2025-05-26 15:54:14,022   INFO  epoch: 5/1000, acc_iter=66, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 09:37/1:51:10, loss_hm=2.3768, loss_loc=7.5656, loss=12.918249823830344, d_time=0.03(0.06), f_time=0.45(0.66), b_time=0.48(0.72), norm=4.441205024719238, lr=0.0010048453557740256
+epochs:   1%|█▋                                                                                                                                                                                                                                                                                             | 6/1000 [09:39<24:20:29, 88.16s/it]2025-05-26 15:55:37,382   INFO  epoch: 6/1000, acc_iter=77, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 11:01/1:52:11, loss_hm=2.3842, loss_loc=7.5533, loss=12.906413858587092, d_time=0.03(0.06), f_time=0.47(0.58), b_time=0.50(0.63), norm=10.465964317321777, lr=0.0010066236522749093
+epochs:   1%|██                                                                                                                                                                                                                                                                                             | 7/1000 [11:02<23:50:42, 86.45s/it]2025-05-26 15:57:01,667   INFO  epoch: 7/1000, acc_iter=88, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:11/00:01, time_cost(all): 12:25/3:18:03, loss_hm=2.4454, loss_loc=7.6504, loss=13.046947132457387, d_time=0.03(0.05), f_time=0.45(0.80), b_time=0.48(0.85), norm=6.110564231872559, lr=0.0010086791213946133
+epochs:   1%|██▎                                                                                                                                                                                                                                                                                            | 8/1000 [12:27<23:39:54, 85.88s/it]2025-05-26 15:58:25,124   INFO  epoch: 8/1000, acc_iter=99, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 13:48/1:48:02, loss_hm=2.3038, loss_loc=7.5509, loss=12.863217960704457, d_time=0.04(0.06), f_time=0.44(0.63), b_time=0.47(0.69), norm=5.252882957458496, lr=0.0010110116363421205
+epochs:   1%|██▌                                                                                                                                                                                                                                                                                            | 9/1000 [13:50<23:25:45, 85.11s/it]2025-05-26 15:59:51,169   INFO  epoch: 9/1000, acc_iter=110, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:08/00:00, time_cost(all): 15:14/2:18:33, loss_hm=2.2491, loss_loc=7.5147, loss=12.80306356603449, d_time=0.04(0.06), f_time=0.45(0.72), b_time=0.48(0.79), norm=4.759407997131348, lr=0.0010136210532369194
+epochs:   1%|██▊                                                                                                                                                                                                                                                                                           | 10/1000 [15:16<23:29:34, 85.43s/it]2025-05-26 16:01:14,100   INFO  epoch: 10/1000, acc_iter=121, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 16:37/1:59:36, loss_hm=2.0959, loss_loc=7.4938, loss=12.773842031305486, d_time=0.03(0.06), f_time=0.45(0.70), b_time=0.49(0.76), norm=5.911784648895264, lr=0.0010165072111178886
+epochs:   1%|███▏                                                                                                                                                                                                                                                                                          | 11/1000 [16:39<23:14:44, 84.62s/it]2025-05-26 16:02:37,037   INFO  epoch: 11/1000, acc_iter=132, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 18:00/1:48:48, loss_hm=2.2624, loss_loc=7.5256, loss=12.85370887409557, d_time=0.04(0.06), f_time=0.46(0.64), b_time=0.49(0.70), norm=6.865510940551758, lr=0.0010196699319532116
+epochs:   1%|███▍                                                                                                                                                                                                                                                                                          | 12/1000 [18:02<23:04:44, 84.09s/it]2025-05-26 16:03:56,910   INFO  epoch: 12/1000, acc_iter=143, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 19:20/1:48:40, loss_hm=2.2754, loss_loc=7.5436, loss=12.875330491499467, d_time=0.04(0.06), f_time=0.45(0.62), b_time=0.49(0.68), norm=6.259242534637451, lr=0.0010231090206513707
+epochs:   1%|███▋                                                                                                                                                                                                                                                                                          | 13/1000 [19:22<22:42:53, 82.85s/it]2025-05-26 16:05:23,401   INFO  epoch: 13/1000, acc_iter=154, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 20:47/2:03:04, loss_hm=2.2182, loss_loc=7.4749, loss=12.684435844421387, d_time=0.04(0.06), f_time=0.46(0.73), b_time=0.50(0.78), norm=4.295769691467285, lr=0.0010268242650731743
+epochs:   1%|████                                                                                                                                                                                                                                                                                          | 14/1000 [20:48<22:59:33, 83.95s/it]2025-05-26 16:06:48,597   INFO  epoch: 14/1000, acc_iter=165, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 22:12/1:49:35, loss_hm=2.3118, loss_loc=7.4986, loss=12.783039266412908, d_time=0.04(0.05), f_time=0.45(0.65), b_time=0.49(0.71), norm=5.085555553436279, lr=0.0010308154360448487
+epochs:   2%|████▎                                                                                                                                                                                                                                                                                         | 15/1000 [22:14<23:04:18, 84.32s/it]2025-05-26 16:08:13,706   INFO  epoch: 15/1000, acc_iter=176, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 23:37/1:49:47, loss_hm=2.2320, loss_loc=7.4872, loss=12.763745481317693, d_time=0.03(0.06), f_time=0.46(0.64), b_time=0.49(0.70), norm=4.206536769866943, lr=0.0010350822873721657
+epochs:   2%|████▌                                                                                                                                                                                                                                                                                         | 16/1000 [23:39<23:06:45, 84.56s/it]2025-05-26 16:09:40,040   INFO  epoch: 16/1000, acc_iter=187, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 25:03/2:08:01, loss_hm=2.1766, loss_loc=7.5882, loss=12.85619831085205, d_time=0.03(0.05), f_time=0.45(0.71), b_time=0.48(0.76), norm=8.894486427307129, lr=0.0010396245558556387
+epochs:   2%|████▊                                                                                                                                                                                                                                                                                         | 17/1000 [25:05<23:14:14, 85.10s/it]2025-05-26 16:11:04,311   INFO  epoch: 17/1000, acc_iter=198, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 26:27/1:50:18, loss_hm=2.1701, loss_loc=7.4298, loss=12.690198811617764, d_time=0.04(0.06), f_time=0.46(0.66), b_time=0.50(0.72), norm=6.553187370300293, lr=0.0010444419613067513
+epochs:   2%|█████▏                                                                                                                                                                                                                                                                                        | 18/1000 [26:29<23:08:50, 84.86s/it]2025-05-26 16:12:28,547   INFO  epoch: 18/1000, acc_iter=209, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 27:52/1:48:09, loss_hm=2.3276, loss_loc=7.5082, loss=12.852706042203037, d_time=0.04(0.06), f_time=0.45(0.62), b_time=0.48(0.68), norm=5.284579753875732, lr=0.0010495342065652419
+epochs:   2%|█████▍                                                                                                                                                                                                                                                                                        | 19/1000 [27:54<23:04:25, 84.67s/it]2025-05-26 16:13:53,203   INFO  epoch: 19/1000, acc_iter=220, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 29:16/1:49:53, loss_hm=2.3008, loss_loc=7.4956, loss=12.767100767655807, d_time=0.04(0.06), f_time=0.45(0.69), b_time=0.49(0.75), norm=4.318833827972412, lr=0.001054900977517436
+epochs:   2%|█████▋                                                                                                                                                                                                                                                                                        | 20/1000 [29:18<23:03:55, 84.73s/it]2025-05-26 16:15:17,710   INFO  epoch: 20/1000, acc_iter=231, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 30:41/1:50:07, loss_hm=2.2505, loss_loc=7.4503, loss=12.699161009355025, d_time=0.04(0.06), f_time=0.45(0.73), b_time=0.49(0.79), norm=4.635250091552734, lr=0.0010605419431156237
+epochs:   2%|██████                                                                                                                                                                                                                                                                                        | 21/1000 [30:43<23:00:02, 84.58s/it]2025-05-26 16:16:42,848   INFO  epoch: 21/1000, acc_iter=242, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 32:06/1:49:11, loss_hm=2.1887, loss_loc=7.3455, loss=12.646421259099787, d_time=0.04(0.06), f_time=0.44(0.63), b_time=0.48(0.69), norm=5.010288238525391, lr=0.001066456755398475
+epochs:   2%|██████▎                                                                                                                                                                                                                                                                                       | 22/1000 [32:08<23:01:19, 84.74s/it]2025-05-26 16:18:06,934   INFO  epoch: 22/1000, acc_iter=253, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 33:30/1:49:10, loss_hm=2.1541, loss_loc=7.2386, loss=12.480602437799627, d_time=0.03(0.06), f_time=0.46(0.66), b_time=0.50(0.72), norm=6.060817241668701, lr=0.0010726450495125075
+epochs:   2%|██████▌                                                                                                                                                                                                                                                                                       | 23/1000 [33:32<22:56:47, 84.55s/it]2025-05-26 16:19:32,060   INFO  epoch: 23/1000, acc_iter=264, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 34:55/2:05:10, loss_hm=2.3310, loss_loc=7.3890, loss=12.630009391091086, d_time=0.04(0.06), f_time=0.46(0.73), b_time=0.49(0.80), norm=5.12053918838501, lr=0.0010791064437345906
+epochs:   2%|██████▊                                                                                                                                                                                                                                                                                       | 24/1000 [34:57<22:58:43, 84.76s/it]2025-05-26 16:20:57,733   INFO  epoch: 24/1000, acc_iter=275, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 36:21/1:51:42, loss_hm=2.3478, loss_loc=7.4276, loss=12.72514568675648, d_time=0.04(0.05), f_time=0.45(0.65), b_time=0.49(0.70), norm=7.6017279624938965, lr=0.0010858405394954876
+epochs:   2%|███████▏                                                                                                                                                                                                                                                                                      | 25/1000 [36:23<23:01:29, 85.02s/it]2025-05-26 16:22:20,881   INFO  epoch: 25/1000, acc_iter=286, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 37:44/2:03:27, loss_hm=2.3658, loss_loc=7.3780, loss=12.683882713317871, d_time=0.03(0.06), f_time=0.47(0.74), b_time=0.50(0.80), norm=6.621389389038086, lr=0.0010928469214044612
+epochs:   3%|███████▍                                                                                                                                                                                                                                                                                      | 26/1000 [37:46<22:51:05, 84.46s/it]2025-05-26 16:23:45,280   INFO  epoch: 26/1000, acc_iter=297, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:08/00:00, time_cost(all): 39:08/2:23:12, loss_hm=2.2772, loss_loc=7.4688, loss=12.746560443531383, d_time=0.03(0.06), f_time=0.45(0.68), b_time=0.48(0.74), norm=5.797902584075928, lr=0.0011001251572748637
+epochs:   3%|███████▋                                                                                                                                                                                                                                                                                      | 27/1000 [39:10<22:49:09, 84.43s/it]2025-05-26 16:25:09,333   INFO  epoch: 27/1000, acc_iter=308, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 40:32/1:55:14, loss_hm=2.2778, loss_loc=7.4831, loss=12.802050070329146, d_time=0.04(0.06), f_time=0.46(0.66), b_time=0.50(0.72), norm=4.39940881729126, lr=0.0011076747981508279
+epochs:   3%|████████                                                                                                                                                                                                                                                                                      | 28/1000 [40:34<22:45:31, 84.29s/it]2025-05-26 16:26:34,086   INFO  epoch: 28/1000, acc_iter=319, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 41:57/1:50:42, loss_hm=2.3274, loss_loc=7.3629, loss=12.699566927823154, d_time=0.03(0.06), f_time=0.46(0.63), b_time=0.49(0.68), norm=6.857992649078369, lr=0.0011154953783349408
+epochs:   3%|████████▎                                                                                                                                                                                                                                                                                     | 29/1000 [41:59<22:47:29, 84.50s/it]2025-05-26 16:27:59,382   INFO  epoch: 29/1000, acc_iter=330, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 43:23/1:47:06, loss_hm=2.2670, loss_loc=7.4666, loss=12.770084381103516, d_time=0.03(0.05), f_time=0.46(0.65), b_time=0.49(0.71), norm=4.450953960418701, lr=0.0011235864154169797
+epochs:   3%|████████▌                                                                                                                                                                                                                                                                                     | 30/1000 [43:24<22:49:00, 84.68s/it]2025-05-26 16:29:24,280   INFO  epoch: 30/1000, acc_iter=341, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 44:47/1:48:25, loss_hm=2.3407, loss_loc=7.4030, loss=12.72288990020752, d_time=0.04(0.05), f_time=0.45(0.67), b_time=0.49(0.73), norm=4.650812149047852, lr=0.0011319474103036638
+epochs:   3%|████████▊                                                                                                                                                                                                                                                                                     | 31/1000 [44:49<22:48:54, 84.76s/it]2025-05-26 16:30:47,220   INFO  epoch: 31/1000, acc_iter=352, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:07/00:00, time_cost(all): 46:10/2:03:20, loss_hm=2.2498, loss_loc=7.4351, loss=12.733684366399592, d_time=0.04(0.06), f_time=0.45(0.67), b_time=0.49(0.73), norm=5.7572021484375, lr=0.0011405778472494445
+epochs:   3%|█████████▏                                                                                                                                                                                                                                                                                    | 32/1000 [46:12<22:38:24, 84.20s/it]2025-05-26 16:32:05,791   INFO  epoch: 32/1000, acc_iter=363, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:08/00:00, time_cost(all): 47:29/2:09:09, loss_hm=2.3362, loss_loc=7.3966, loss=12.705629695545543, d_time=0.04(0.05), f_time=0.46(0.65), b_time=0.50(0.70), norm=5.2487711906433105, lr=0.001149477193888318
+epochs:   3%|█████████▍                                                                                                                                                                                                                                                                                    | 33/1000 [47:31<22:09:33, 82.50s/it]2025-05-26 16:33:31,095   INFO  epoch: 33/1000, acc_iter=374, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 48:54/1:51:06, loss_hm=2.0959, loss_loc=7.4600, loss=12.699402115561746, d_time=0.03(0.06), f_time=0.46(0.64), b_time=0.48(0.70), norm=5.649776935577393, lr=0.0011586449012666658
+epochs:   3%|█████████▋                                                                                                                                                                                                                                                                                    | 34/1000 [48:56<22:21:56, 83.35s/it]2025-05-26 16:34:56,247   INFO  epoch: 34/1000, acc_iter=385, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 50:19/1:47:01, loss_hm=2.2173, loss_loc=7.3662, loss=12.625292778015137, d_time=0.04(0.06), f_time=0.45(0.64), b_time=0.49(0.70), norm=4.96716833114624, lr=0.0011680804038771125
+epochs:   4%|██████████                                                                                                                                                                                                                                                                                    | 35/1000 [50:21<22:29:22, 83.90s/it]2025-05-26 16:36:20,858   INFO  epoch: 35/1000, acc_iter=396, cur_iter=10/11, batch_size=8, time_cost(epoch): 00:06/00:00, time_cost(all): 51:44/1:47:28, loss_hm=2.2757, loss_loc=7.3956, loss=12.74196702783758, d_time=0.03(0.06), f_time=0.46(0.69), b_time=0.49(0.74), norm=4.582110404968262, lr=0.0011777831196934097
+epochs:   4%|██████████▎                                                                                                                                                                                                                                                                                   | 36/1000 [52:48<23:33:56, 88.00s/it]
+Traceback (most recent call last):                                                                                                                                                                                                                                                                                                              
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 211, in <module>
+    main()
+  File "/home/shchoi/workspace/DSVT/tools/train.py", line 158, in main
+    train_model(
+  File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 224, in train_model
+    accumulated_iter = train_one_epoch(
+  File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 25, in train_one_epoch
+    dataloader_iter = iter(train_loader)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 491, in __iter__
+    return self._get_iterator()
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 422, in _get_iterator
+    return _MultiProcessingDataLoaderIter(self)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1146, in __init__
+    w.start()
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/context.py", line 224, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/context.py", line 288, in _Popen
+    return Popen(process_obj)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_spawn_posix.py", line 32, in __init__
+    super().__init__(process_obj)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+  File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_spawn_posix.py", line 62, in _launch
+    f.write(fp.getbuffer())
+KeyboardInterrupt
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 211, in <module>
+[rank0]:     main()
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train.py", line 158, in main
+[rank0]:     train_model(
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 224, in train_model
+[rank0]:     accumulated_iter = train_one_epoch(
+[rank0]:   File "/home/shchoi/workspace/DSVT/tools/train_utils/train_utils.py", line 25, in train_one_epoch
+[rank0]:     dataloader_iter = iter(train_loader)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 491, in __iter__
+[rank0]:     return self._get_iterator()
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 422, in _get_iterator
+[rank0]:     return _MultiProcessingDataLoaderIter(self)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1146, in __init__
+[rank0]:     w.start()
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/process.py", line 121, in start
+[rank0]:     self._popen = self._Popen(self)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/context.py", line 224, in _Popen
+[rank0]:     return _default_context.get_context().Process._Popen(process_obj)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/context.py", line 288, in _Popen
+[rank0]:     return Popen(process_obj)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_spawn_posix.py", line 32, in __init__
+[rank0]:     super().__init__(process_obj)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_fork.py", line 19, in __init__
+[rank0]:     self._launch(process_obj)
+[rank0]:   File "/home/shchoi/anaconda3/envs/open3d_data/lib/python3.10/multiprocessing/popen_spawn_posix.py", line 62, in _launch
+[rank0]:     f.write(fp.getbuffer())
+[rank0]: KeyboardInterrupt

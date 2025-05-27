@@ -1,0 +1,7 @@
+{"time":"2025-05-26T19:10:05.105110555Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_191003-inhgo1h1/logs/debug-core.log"}
+{"time":"2025-05-26T19:10:05.578515827Z","level":"INFO","msg":"created new stream","id":"inhgo1h1"}
+{"time":"2025-05-26T19:10:05.578601997Z","level":"INFO","msg":"stream: started","id":"inhgo1h1"}
+{"time":"2025-05-26T19:10:05.578769713Z","level":"INFO","msg":"writer: Do: started","stream_id":"inhgo1h1"}
+{"time":"2025-05-26T19:10:05.578876318Z","level":"INFO","msg":"sender: started","stream_id":"inhgo1h1"}
+{"time":"2025-05-26T19:10:05.579019924Z","level":"INFO","msg":"handler: started","stream_id":"inhgo1h1"}
+{"time":"2025-05-26T19:10:05.89322739Z","level":"INFO","msg":"Starting system monitor"}

@@ -1,0 +1,7 @@
+{"time":"2025-05-26T19:05:13.431360218Z","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/shchoi/workspace/DSVT/tools/wandb/run-20250526_190512-es2p08dg/logs/debug-core.log"}
+{"time":"2025-05-26T19:05:13.914395379Z","level":"INFO","msg":"created new stream","id":"es2p08dg"}
+{"time":"2025-05-26T19:05:13.914498052Z","level":"INFO","msg":"stream: started","id":"es2p08dg"}
+{"time":"2025-05-26T19:05:13.91680982Z","level":"INFO","msg":"handler: started","stream_id":"es2p08dg"}
+{"time":"2025-05-26T19:05:13.914668021Z","level":"INFO","msg":"writer: Do: started","stream_id":"es2p08dg"}
+{"time":"2025-05-26T19:05:13.916911012Z","level":"INFO","msg":"sender: started","stream_id":"es2p08dg"}
+{"time":"2025-05-26T19:05:14.302849652Z","level":"INFO","msg":"Starting system monitor"}
